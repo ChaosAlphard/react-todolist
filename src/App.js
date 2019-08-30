@@ -68,7 +68,12 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      // React 限制只能返回一个根元素,
+      // 其他元素都必须放在根元素中
+      // 当需要返回两个以上的元素时
+      // 可以使用Fragment 标签来代替外层元素
+      // Fragment标签 自身不会生成Dom元素
+      <React.Fragment>
         {/* todo */}
         <div className="add-todo">
           <input type="text" className="add-input"
@@ -88,7 +93,7 @@ class App extends Component {
         <ul className="todo-list">
           {this.renderTodoItem()}
         </ul>
-      </div>
+      </React.Fragment>
     )
   }
 }
