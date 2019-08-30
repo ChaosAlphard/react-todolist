@@ -10,6 +10,10 @@ class App extends Component {
       list: [],
       inputVal: ''
     }
+
+    this.inputChange = this.inputChange.bind(this)
+    this.addTodo = this.addTodo.bind(this)
+    this.removeTodo = this.removeTodo.bind(this)
   }
 
   inputChange(e) {
@@ -17,7 +21,7 @@ class App extends Component {
       inputVal: window.event.target.value
     })
     // e.target === window.event.target
-    console.log(e.target, window.event.target)
+    // console.log(e.target === window.event.target)
   }
 
   addTodo() {
@@ -40,6 +44,28 @@ class App extends Component {
     })
   }
 
+  renderTodoItem() {
+    return (
+      this.state.list.map((item, i) => {
+        // return (
+        //   <li className="todo-item" key={i+item}>
+        //     <span className="todo-text">{item}</span>
+        //     <button className="remove-todo" type="button"
+        //     onClick={this.removeTodo.bind(this, i)}>
+        //       Delete
+        //     </button>
+        //   </li>
+        // )
+        // 父组件 向 子组件 传值
+        // 父组件通过属性的方式向子组件传递参数
+        // 子组件通过props 接收父组件传递过来的参数
+        return <TodoItem key={i}
+                removeTodo={this.removeTodo.bind(this)}
+                item={item} index={i}/>
+      })
+    )
+  }
+
   render() {
     return (
       <div className="App">
@@ -49,33 +75,19 @@ class App extends Component {
           value={this.state.inputVal}
           // this会指向调用它的对象(button)
           // 需要使用bind 来改变this指向
-          onChange={this.inputChange.bind(this)}/>
+          // onChange={this.inputChange.bind(this)}/>
+          // 也可以在constructor 中绑定this 指向
+          onChange={this.inputChange} />
 
           <button className="add-btn" type="button"
-          onClick={this.addTodo.bind(this)}>
+          onClick={this.addTodo}>
             添加
           </button>
         </div>
         {/* body */}
-        <ul className="todo-list">{
-          this.state.list.map((item, i) => {
-            // return (
-            //   <li className="todo-item" key={i+item}>
-            //     <span className="todo-text">{item}</span>
-            //     <button className="remove-todo" type="button"
-            //     onClick={this.removeTodo.bind(this, i)}>
-            //       Delete
-            //     </button>
-            //   </li>
-            // )
-            // 父组件 向 子组件 传值
-            // 父组件通过属性的方式向子组件传递参数
-            // 子组件通过props 接收父组件传递过来的参数
-            return <TodoItem key={i}
-                    removeTodo={this.removeTodo.bind(this)}
-                    item={item} index={i}/>
-          })
-        }</ul>
+        <ul className="todo-list">
+          {this.renderTodoItem()}
+        </ul>
       </div>
     )
   }
