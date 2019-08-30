@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TodoItem from './TodoItem'
 import './App.css';
 
 class App extends Component {
@@ -58,15 +59,21 @@ class App extends Component {
         {/* body */}
         <ul className="todo-list">{
           this.state.list.map((item, i) => {
-            return (
-              <li className="todo-item" key={i+item}>
-                <span className="todo-text">{item}</span>
-                <button className="remove-todo" type="button"
-                onClick={this.removeTodo.bind(this, i)}>
-                  Delete
-                </button>
-              </li>
-            )
+            // return (
+            //   <li className="todo-item" key={i+item}>
+            //     <span className="todo-text">{item}</span>
+            //     <button className="remove-todo" type="button"
+            //     onClick={this.removeTodo.bind(this, i)}>
+            //       Delete
+            //     </button>
+            //   </li>
+            // )
+            // 父组件 向 子组件 传值
+            // 父组件通过属性的方式向子组件传递参数
+            // 子组件通过props 接收父组件传递过来的参数
+            return <TodoItem key={i}
+                    removeTodo={this.removeTodo.bind(this)}
+                    item={item} index={i}/>
           })
         }</ul>
       </div>

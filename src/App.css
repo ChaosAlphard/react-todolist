@@ -53,26 +53,3 @@ ul, li {
 .todo-list {
   margin-top: 30px;
 }
-
-.todo-item {
-  padding: 10px 20px;
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-}
-.todo-item .todo-text {
-  flex-grow: 1;
-}
-.todo-item .remove-todo {
-  flex-shrink: 0;
-  color: #FFF;
-  background-color: #E06C754A;
-  padding: 10px 20px;
-  border: 0;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.todo-item:nth-child(odd) {
-  background-color: #61AFEF3A;
-}
