@@ -29,17 +29,28 @@ class App extends Component {
     })
   }
 
+  removeTodo(index) {
+    // 拷贝一份list 用于操作
+    // 尽量不直接修改state 的值
+    const list = [...this.state.list]
+    list.splice(index, 1)
+    this.setState({
+      list
+    })
+  }
+
   render() {
     return (
-      <div className="todo-list">
+      <div className="App">
         {/* todo */}
         <div className="add-todo">
-          <input type="text" value={this.state.inputVal}
-            // this会指向调用它的对象(button)
-            // 需要使用bind 来改变this指向
+          <input type="text" className="add-input"
+          value={this.state.inputVal}
+          // this会指向调用它的对象(button)
+          // 需要使用bind 来改变this指向
           onChange={this.inputChange.bind(this)}/>
 
-          <button type="button"
+          <button className="add-btn" type="button"
           onClick={this.addTodo.bind(this)}>
             添加
           </button>
@@ -48,9 +59,12 @@ class App extends Component {
         <ul className="todo-list">{
           this.state.list.map((item, i) => {
             return (
-              <li className="todo-item"
-                key={i+item}>
-                {item}
+              <li className="todo-item" key={i+item}>
+                <span className="todo-text">{item}</span>
+                <button className="remove-todo" type="button"
+                onClick={this.removeTodo.bind(this, i)}>
+                  Delete
+                </button>
               </li>
             )
           })
